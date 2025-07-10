@@ -1,3 +1,5 @@
+package com.yandex.fz4.model;
+
 import java.util.*;
 
 public class Task {
@@ -49,7 +51,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "com.yandex.fz4.model.Task{" +
                 "name = '" + name + '\'' +
                 ", description =  '" + description + '\'' +
                 ", status = '" + status + '\'' +

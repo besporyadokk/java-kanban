@@ -1,3 +1,5 @@
+package com.yandex.fz4.model;
+
 public class Subtask extends Task{
 
     private int epicId;
@@ -16,7 +18,7 @@ public class Subtask extends Task{
     }
 
     public String toString(){
-        return "Subtask{" +
+        return "com.yandex.fz4.model.Subtask{" +
                 "name = '" + name + '\''+
                 ", description = " + description + '\'' +
                 ", status = " + status + '\'' +

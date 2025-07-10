@@ -1,4 +1,8 @@
+package com.yandex.fz4.model;
+
 import java.util.ArrayList;
+
+
 
 public class Epic extends Task{
     private ArrayList<Integer> subtasksIds;
@@ -10,7 +14,7 @@ public class Epic extends Task{
     }
 
     public ArrayList<Integer> getSubtasksIds(){
-        return subtasksIds;
+        return new ArrayList<>(subtasksIds);
     }
 
     public void addSubtaskId(int subtaskId){
@@ -18,13 +22,14 @@ public class Epic extends Task{
     }
 
     public void removeSubtaskId(int subtaskId){
-        subtasksIds.remove(subtaskId);
+
+        subtasksIds.remove(Integer.valueOf(subtaskId));
     }
 
 
     @Override
     public String toString(){
-        return "Epic{" +
+        return "com.yandex.fz4.model.Epic{" +
                 "name = '" + getName() + '\''+
                 ", description = " + getDescription() + '\'' +
                 ", status = " + getStatus() + '\'' +
