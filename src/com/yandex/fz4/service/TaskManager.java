@@ -9,7 +9,6 @@ public interface TaskManager {
     List<Task> getHistory();
 
 
-
     /// Task
     ArrayList<Task> getTasks();
 
