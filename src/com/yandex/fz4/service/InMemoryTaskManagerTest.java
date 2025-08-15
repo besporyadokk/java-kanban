@@ -73,4 +73,16 @@ class InMemoryTaskManagerTest {
         assertEquals(1, tasks.size(), "Неверное количество задач.");
         assertEquals(task, tasks.getFirst(), "Задачи не совпадают.");
     }
+
+    @Test
+    void shouldRemoveIdsFromDeletedSubtasks(){
+        Epic epic = new Epic("a","b");
+        manager.addEpic(epic);
+        Subtask subtask = new Subtask("a","b",epic.getId());
+        manager.addSubtask(subtask);
+
+        manager.removeSubtaskById(subtask.getId());
+        assertTrue(epic.getSubtasksIds().isEmpty());
+
+    }
 }
