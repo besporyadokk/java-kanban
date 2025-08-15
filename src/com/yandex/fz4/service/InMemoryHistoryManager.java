@@ -49,7 +49,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             return;
         }
         final int id = task.getId();
-        nodeMap.put(id, last);
+        remove(id);
+        linkLast(task);
     }
 
     private void linkLast(Task task) {
@@ -78,15 +79,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    /*@Override
-    public void add(Task task) {
-        if (task == null) return;
-
-        viewHistory.addFirst(task);
-        if (viewHistory.size() > MAX_SIZE) {
-            viewHistory.removeLast();
-        }
-    }*/
     @Override
     public void remove(int id) {
         removeNode(id);
