@@ -10,7 +10,7 @@ class SubtaskTest {
     @Test
     void subtasksCantBeItsEpic() {
         Subtask subtask = new Subtask("a", "b", 1);
-        subtask.setId(2);
+        subtask.setId(1);
         int id = subtask.getEpicId();
         subtask.setEpicId(subtask.getId()); // id остаётся прежний и не передаётся в setEpicId
         assertEquals(id, subtask.getEpicId());
