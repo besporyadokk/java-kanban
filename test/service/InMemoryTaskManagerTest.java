@@ -61,7 +61,7 @@ class InMemoryTaskManagerTest {
     @Test
     void addNewTask() {
         Task task = new Task("Test addNewTask", "Test addNewTask description");
-        task.setId(1);
+        manager.addTask(task);
         int taskId = task.getId();
 
         final Task savedTask = manager.getTaskById(taskId);
