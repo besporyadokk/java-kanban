@@ -1,5 +1,8 @@
-package com.yandex.fz4.service;
+package test;
 
+import com.yandex.fz4.service.HistoryManager;
+import com.yandex.fz4.service.Manangers;
+import com.yandex.fz4.service.TaskManager;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

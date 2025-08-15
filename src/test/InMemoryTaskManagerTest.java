@@ -1,6 +1,8 @@
-package com.yandex.fz4.service;
+package test;
 
 
+import com.yandex.fz4.service.InMemoryTaskManager;
+import com.yandex.fz4.service.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.yandex.fz4.model.*;
