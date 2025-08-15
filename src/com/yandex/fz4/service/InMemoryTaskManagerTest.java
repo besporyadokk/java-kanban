@@ -43,7 +43,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void TaskShouldNotChangeInManager() {
+    void taskShouldNotChangeInManager() {
         Task task1 = new Task("a", "b");
         task1.setStatus(TaskStatus.NEW);
 
