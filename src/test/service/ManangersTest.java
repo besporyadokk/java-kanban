@@ -1,4 +1,4 @@
-package test;
+package test.service;
 
 import com.yandex.fz4.service.HistoryManager;
 import com.yandex.fz4.service.Manangers;

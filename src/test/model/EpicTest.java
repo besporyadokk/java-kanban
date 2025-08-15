@@ -1,4 +1,4 @@
-package test;
+package test.model;
 
 import com.yandex.fz4.model.Epic;
 import org.junit.jupiter.api.Test;
