@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SubtaskTest {
 
     @Test
-    void SubtasksCantBeItsEpic() {
+    void subtasksCantBeItsEpic() {
         Subtask subtask = new Subtask("a", "b", 1);
         subtask.setId(2);
         int id = subtask.getEpicId();
@@ -16,7 +16,7 @@ class SubtaskTest {
     }
 
     @Test
-    void SubtaskWithSameIdsShoulBeEqual() {
+    void subtaskWithSameIdsShoulBeEqual() {
         Subtask subtask1 = new Subtask("a", "b", 1);
         Subtask subtask2 = new Subtask("b", "a", 2);
 

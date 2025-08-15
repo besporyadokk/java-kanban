@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
     @Test
-    void TasksWithSameIdShouldBeEqual() {
+    void tasksWithSameIdShouldBeEqual() {
         Task task1 = new Task("a", "b");
         Task task2 = new Task("b", "a");
 
