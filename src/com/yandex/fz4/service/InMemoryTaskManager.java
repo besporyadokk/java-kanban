@@ -1,9 +1,6 @@
 package com.yandex.fz4.service;
 
-import com.yandex.fz4.model.Epic;
-import com.yandex.fz4.model.Subtask;
-import com.yandex.fz4.model.Task;
-import com.yandex.fz4.model.TaskStatus;
+import com.yandex.fz4.model.*;
 
 import java.util.*;
 
@@ -36,6 +33,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addTask(Task task) {
         task.setId(newId++);
+        task.setTaskType(TaskType.TASK);
         tasks.put(task.getId(), task);
     }
 
@@ -71,6 +69,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addEpic(Epic epic) {
         epic.setId(newId++);
+        epic.setTaskType(TaskType.EPIC);
         epics.put(epic.getId(), epic);
     }
 
@@ -116,6 +115,7 @@ public class InMemoryTaskManager implements TaskManager {
             return;
         }
         subtask.setId(newId++);
+        subtask.setTaskType(TaskType.SUBTASK);
         subtasks.put(subtask.getId(), subtask);
         epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId());
         subtask.setStatus(TaskStatus.NEW);
