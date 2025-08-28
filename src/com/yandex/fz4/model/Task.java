@@ -15,11 +15,11 @@ public class Task {
         this.status = TaskStatus.NEW;
     }
 
-    public TaskType getTaskType(){
+    public TaskType getTaskType() {
         return type;
     }
 
-    public void setTaskType(TaskType type){
+    public void setTaskType(TaskType type) {
         this.type = type;
     }
 
