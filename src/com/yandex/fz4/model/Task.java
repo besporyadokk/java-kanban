@@ -58,11 +58,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return "com.yandex.fz4.model.Task{" +
-                "name = '" + name + '\'' +
-                ", description =  '" + description + '\'' +
-                ", status = '" + status + '\'' +
-                ", id = '" + id + '}';
+        return
+                name + ", " +
+                        description + ", " +
+                        ", " + status +
+                        ", " + id;
     }
 
     @Override

@@ -4,16 +4,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-class FileBackedTaskManagerTest extends InMemoryTaskManagerTest{
+
+class FileBackedTaskManagerTest extends InMemoryTaskManagerTest {
 
     @BeforeEach
-    void SetUp(){
-        Path testFile = File.createTempFile("test",".tmp");
+    void SetUp() {
+        Path testFile = File.createTempFile("test", ".tmp");
         fileManager = new FileBackedTaskManager(testFile);
     }
 
     @Test
-    void shouldSaveAndLoadEmptyFile(){
+    void shouldSaveAndLoadEmptyFile() {
         fileManager.save();
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(testFile);
         assertTrue(loadedManager.getTasks().isEmpty());
@@ -23,17 +24,17 @@ class FileBackedTaskManagerTest extends InMemoryTaskManagerTest{
     }
 
     @Test
-    void shouldSaveAndLoadTasks(){
-        Task task1 = new Task("a","b");
-        Task task2 = new Task("aa","bb");
+    void shouldSaveAndLoadTasks() {
+        Task task1 = new Task("a", "b");
+        Task task2 = new Task("aa", "bb");
         fileManager.save();
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(testFile);
         loadedTasks = loadedManager.getTasks();
-        assertEquals(2,loadedTasks.size());
+        assertEquals(2, loadedTasks.size());
         Task loadedTask1 = loadedManager.getTaskById(task1.getId());
         Task loadedTask2 = loadedManager.getTaskById(task2.getId());
 
-        assertEquals(task1.toString(),loadedTask1.toString());
-        assertEquals(task2.toString(),loadedTask2.toString());
+        assertEquals(task1.toString(), loadedTask1.toString());
+        assertEquals(task2.toString(), loadedTask2.toString());
     }
 }
