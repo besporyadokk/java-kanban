@@ -10,7 +10,7 @@ import java.util.*;
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private File file;
-    private final static String toStringType = "id,type,name,status,description,epic";
+    private static final String toStringType = "id,type,name,status,description,epic";
 
     public FileBackedTaskManager(File file) {
         this.file = file;
