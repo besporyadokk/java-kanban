@@ -30,13 +30,11 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "com.yandex.fz4.model.Epic{" +
-                "name = '" + getName() + '\'' +
-                ", description = " + getDescription() + '\'' +
-                ", status = " + getStatus() + '\'' +
-                ", id = '" + getId() +
-                "', subtaskIds = '" + getSubtasksIds() +
-                '}';
+        return
+                name + ", " +
+                        description + ", " +
+                        ", " + status +
+                        ", " + id;
     }
 
 }

@@ -17,12 +17,13 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    @Override
     public String toString() {
-        return "com.yandex.fz4.model.Subtask{" +
-                "name = '" + name + '\'' +
-                ", description = " + description + '\'' +
-                ", status = " + status + '\'' +
-                "id = " + id + '}';
+        return
+                getName() + ", " +
+                        getDescription() + ", " +
+                        ", " + getStatus() +
+                        ", " + getId() + ", " + getEpicId();
     }
 
 }

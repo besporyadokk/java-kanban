@@ -7,6 +7,7 @@ public class Task {
     protected int id;
     protected String description;
     protected TaskStatus status;
+    protected TaskType type;
 
     public Task(String name, String description) {
         this.name = name;
@@ -14,10 +15,16 @@ public class Task {
         this.status = TaskStatus.NEW;
     }
 
+    public TaskType getTaskType() {
+        return type;
+    }
+
+    public void setTaskType(TaskType type) {
+        this.type = type;
+    }
 
     public void setStatus(TaskStatus status) {
         this.status = status;
-
     }
 
     public TaskStatus getStatus() {
@@ -51,11 +58,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return "com.yandex.fz4.model.Task{" +
-                "name = '" + name + '\'' +
-                ", description =  '" + description + '\'' +
-                ", status = '" + status + '\'' +
-                ", id = '" + id + '}';
+        return
+                name + ", " +
+                        description + ", " +
+                        ", " + status +
+                        ", " + id;
     }
 
     @Override
