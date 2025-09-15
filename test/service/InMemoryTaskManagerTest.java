@@ -33,9 +33,13 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
     void findAndAddAllTypes() {
         Task task = new Task("a", "b");
         Epic epic = new Epic("a", "b");
-        Subtask subtask = new Subtask("a", "b", epic.getId());
+
 
         taskManager.addEpic(epic);
+
+
+        Subtask subtask = new Subtask("a", "b", epic.getId());
+
         taskManager.addTask(task);
         taskManager.addSubtask(subtask);
 
