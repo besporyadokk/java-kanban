@@ -6,11 +6,8 @@ public class Subtask extends Task {
 
     public Subtask(String name, String description, int epicId) {
         super(name, description);
-        if (epicId != this.id) { // проверка при создании
-            this.epicId = epicId;
-        } else {
-            this.epicId = 0; // или другое значение по умолчанию
-        }
+
+        this.epicId = epicId;
     }
 
     public int getEpicId() {
@@ -18,7 +15,8 @@ public class Subtask extends Task {
     }
 
     public void setEpicId(int epicId) {
-        if (epicId != this.id) {
+
+        if (this.id != 0 && epicId != this.id) {
             this.epicId = epicId;
         }
     }
