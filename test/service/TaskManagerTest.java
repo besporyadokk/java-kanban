@@ -75,10 +75,13 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void testSubtaskCannotBeItsOwnEpic() {
-        Subtask subtask = new Subtask("S", "D", 42);
+        Subtask subtask = new Subtask("S", "D", 1);
         subtask.setId(42);
 
-        assertNotEquals(subtask.getId(), subtask.getEpicId(), "Subtask не может ссылаться на себя как на эпик");
+        int originalEpicId = subtask.getEpicId();
+        subtask.setEpicId(subtask.getId());
+        assertEquals(originalEpicId, subtask.getEpicId());
+        assertNotEquals(subtask.getId(), subtask.getEpicId());
     }
 
     // Основные тесты функциональности

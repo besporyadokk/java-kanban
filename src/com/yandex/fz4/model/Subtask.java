@@ -15,8 +15,7 @@ public class Subtask extends Task {
     }
 
     public void setEpicId(int epicId) {
-
-        if (this.id != 0 && epicId != this.id) {
+        if (this.id != epicId) {
             this.epicId = epicId;
         }
     }
