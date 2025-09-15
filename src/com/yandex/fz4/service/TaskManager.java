@@ -53,4 +53,6 @@ public interface TaskManager {
     void updateEpicStatus(int epicId);
 
     ArrayList<Subtask> getSubtasksByEpicId(int epicId);
+
+    TreeSet<Task> getPrioritizedTasks();
 }
