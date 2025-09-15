@@ -119,10 +119,19 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
         Task added = taskManager.addTask(original);
 
+
+        assertSame(original, added);
+
+
         assertEquals(originalName, added.getName());
         assertEquals(originalDesc, added.getDescription());
         assertEquals(originalStatus, added.getStatus());
-        assertNotEquals(0, added.getId(), "У задачи должен быть присвоен уникальный id");
+
+
+        assertNotEquals(0, added.getId());
+
+
+        assertNotEquals(0, original.getId());
     }
 
     @Test
