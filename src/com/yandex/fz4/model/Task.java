@@ -1,5 +1,6 @@
 package com.yandex.fz4.model;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Task {
@@ -8,11 +9,15 @@ public class Task {
     protected String description;
     protected TaskStatus status;
     protected TaskType type;
+    protected long duration;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
         this.status = TaskStatus.NEW;
+        this.duration = 0;
     }
 
     public TaskType getTaskType() {
@@ -55,6 +60,28 @@ public class Task {
         this.description = description;
     }
 
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime(){
+        return startTime;
+    }
+    public void setStartTime(LocalDateTime startTime){
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime(){
+        return startTime.plusSeconds(duration);
+    }
+
+    public void setEndTime(LocalDateTime endTime){
+        this.endTime = endTime;
+    }
 
     @Override
     public String toString() {
