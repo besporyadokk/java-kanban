@@ -19,10 +19,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(toStringType);
+            writer.newLine();
             for (Task task : getTasks()) {
                 writer.write(toString(task));
+                writer.newLine();
             }
-
         } catch (IOException e) {
             throw new ManagerSaveException(e.getMessage());
         }
@@ -40,9 +41,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public Task addTask(Task task) {
-        super.addTask(task);
+        Task result = super.addTask(task); // должен увеличить newId
         save();
-        return task;
+        return result;
     }
 
     @Override
@@ -57,11 +58,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+
     @Override
     public Epic addEpic(Task epic) {
-        super.addEpic(epic);
+        Epic result = super.addEpic(epic); // должен увеличить newId
         save();
-        return null;
+        return result;
     }
 
     @Override
@@ -84,9 +86,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public Subtask addSubtask(Task subtask) {
-        super.addSubtask(subtask);
+        Subtask result = super.addSubtask(subtask); // должен увеличить newId
         save();
-        return null;
+        return result;
     }
 
     @Override
