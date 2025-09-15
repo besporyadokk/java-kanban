@@ -89,8 +89,8 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
     }
 
     @Test
-    void epicShouldHaveStatusNew(){
-        Epic epic = new Epic("a","b");
+    void epicShouldHaveStatusNew() {
+        Epic epic = new Epic("a", "b");
         manager.addEpic(epic);
 
         Subtask subtask1 = new Subtask("Sub1", "Desc", epic.getId());

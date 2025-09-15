@@ -77,9 +77,12 @@ class InMemoryHistoryManagerTest {
     @Test
     void testRemoveFromHistoryBeginning() {
 
-        Task task1 = new Task("Task1", "Desc"); task1.setId(1);
-        Task task2 = new Task("Task2", "Desc"); task2.setId(2);
-        Task task3 = new Task("Task3", "Desc"); task3.setId(3);
+        Task task1 = new Task("Task1", "Desc");
+        task1.setId(1);
+        Task task2 = new Task("Task2", "Desc");
+        task2.setId(2);
+        Task task3 = new Task("Task3", "Desc");
+        task3.setId(3);
 
         historyManager.add(task1);
         historyManager.add(task2);
@@ -93,9 +96,12 @@ class InMemoryHistoryManagerTest {
     @Test
     void testRemoveFromHistoryMiddle() {
 
-        Task task1 = new Task("Task1", "Desc"); task1.setId(1);
-        Task task2 = new Task("Task2", "Desc"); task2.setId(2);
-        Task task3 = new Task("Task3", "Desc"); task3.setId(3);
+        Task task1 = new Task("Task1", "Desc");
+        task1.setId(1);
+        Task task2 = new Task("Task2", "Desc");
+        task2.setId(2);
+        Task task3 = new Task("Task3", "Desc");
+        task3.setId(3);
 
         historyManager.add(task1);
         historyManager.add(task2);
@@ -108,9 +114,12 @@ class InMemoryHistoryManagerTest {
     @Test
     void testRemoveFromHistoryEnd() {
 
-        Task task1 = new Task("Task1", "Desc"); task1.setId(1);
-        Task task2 = new Task("Task2", "Desc"); task2.setId(2);
-        Task task3 = new Task("Task3", "Desc"); task3.setId(3);
+        Task task1 = new Task("Task1", "Desc");
+        task1.setId(1);
+        Task task2 = new Task("Task2", "Desc");
+        task2.setId(2);
+        Task task3 = new Task("Task3", "Desc");
+        task3.setId(3);
 
         historyManager.add(task1);
         historyManager.add(task2);

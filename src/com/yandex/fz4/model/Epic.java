@@ -4,7 +4,6 @@ package com.yandex.fz4.model;
 import java.util.ArrayList;
 
 
-
 public class Epic extends Task {
     private ArrayList<Integer> subtasksIds;
 
@@ -27,7 +26,6 @@ public class Epic extends Task {
     public void removeSubtaskId(int subtaskId) {
         subtasksIds.remove(Integer.valueOf(subtaskId));
     }
-
 
 
     @Override
