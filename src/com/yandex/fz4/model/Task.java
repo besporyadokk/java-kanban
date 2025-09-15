@@ -86,11 +86,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return
-                name + ", " +
-                        description + ", " +
-                        ", " + status +
-                        ", " + id;
+        return id + "," +
+                type + "," +
+                name + "," +
+                status + "," +
+                description;
     }
 
     @Override
