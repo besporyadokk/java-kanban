@@ -55,7 +55,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void addTask(Task task) {
-        if(isTaskCrossWithAnyOther(task)){
+        if (isTaskCrossWithAnyOther(task)) {
             throw new IllegalArgumentException("Задача пересекается по времени с другой.");
         }
         task.setId(newId++);
@@ -72,7 +72,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateTask(Task task) {
-        if(isTaskCrossWithAnyOther(task)){
+        if (isTaskCrossWithAnyOther(task)) {
             throw new IllegalArgumentException("Задача пересекается по времени с другой.");
         }
         tasks.put(task.getId(), task);
@@ -142,7 +142,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void addSubtask(Task task) {
         Subtask subtask = (Subtask) task;
 
-        if(isTaskCrossWithAnyOther(task)){
+        if (isTaskCrossWithAnyOther(task)) {
             throw new IllegalArgumentException("Задача пересекается по времени с другой.");
         }
 
@@ -168,7 +168,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateSubtask(Task task) {
         Subtask subtask = (Subtask) task;
 
-        if(isTaskCrossWithAnyOther(task)){
+        if (isTaskCrossWithAnyOther(task)) {
             throw new IllegalArgumentException("Задача пересекается по времени с другой.");
         }
 
@@ -223,8 +223,8 @@ public class InMemoryTaskManager implements TaskManager {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public boolean isTasksCross(Task task1, Task task2){
-        if (task1.toString().equals(task2.toString())){
+    public boolean isTasksCross(Task task1, Task task2) {
+        if (task1.toString().equals(task2.toString())) {
             return false;
         }
         LocalDateTime start1 = task1.getStartTime();
@@ -235,34 +235,34 @@ public class InMemoryTaskManager implements TaskManager {
         return start1.isBefore(end2) && end1.isAfter(start2);
     }
 
-    public TreeSet<Task> getPrioritizedTasks(){
-        Comparator<Task> comparator = Comparator.comparing(Task::getStartTime,Comparator.nullsLast(Comparator.naturalOrder()));
-        TreeSet<Task> prioritizedTasks =new TreeSet<>(comparator);
+    public TreeSet<Task> getPrioritizedTasks() {
+        Comparator<Task> comparator = Comparator.comparing(Task::getStartTime, Comparator.nullsLast(Comparator.naturalOrder()));
+        TreeSet<Task> prioritizedTasks = new TreeSet<>(comparator);
 
         prioritizedTasks.addAll(new ArrayList<>(tasks.values()));
         return prioritizedTasks;
     }
 
-    public boolean isTaskCrossWithAnyOther(Task task){
+    public boolean isTaskCrossWithAnyOther(Task task) {
         return getPrioritizedTasks().stream()
-                .anyMatch(t -> isTasksCross(t,task));
+                .anyMatch(t -> isTasksCross(t, task));
     }
 
-    public LocalDateTime getEpicStartTime(int epicId){
+    public LocalDateTime getEpicStartTime(int epicId) {
         return getSubtasksByEpicId(epicId).stream()
                 .map(Subtask::getStartTime)
                 .min(LocalDateTime::compareTo)
                 .orElse(null);
     }
 
-    public LocalDateTime getEpicEndTime(int epicId){
+    public LocalDateTime getEpicEndTime(int epicId) {
         return getSubtasksByEpicId(epicId).stream()
                 .map(Subtask::getEndTime)
                 .max(LocalDateTime::compareTo)
                 .orElse(null);
     }
 
-    public long getEpicDuration(int epicId){
+    public long getEpicDuration(int epicId) {
         return getSubtasksByEpicId(epicId).stream()
                 .mapToLong(Subtask::getDuration)
                 .sum();
