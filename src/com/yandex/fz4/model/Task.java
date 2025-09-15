@@ -18,6 +18,7 @@ public class Task {
         this.description = description;
         this.status = TaskStatus.NEW;
         this.duration = 0;
+        this.type = TaskType.TASK;
     }
 
     public TaskType getTaskType() {
