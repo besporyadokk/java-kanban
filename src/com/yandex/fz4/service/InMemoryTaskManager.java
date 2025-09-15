@@ -156,6 +156,8 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks.put(subtask.getId(), subtask);
         epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId());
         subtask.setStatus(TaskStatus.NEW);
+
+
         updateEpicStatus(subtask.getEpicId());
 
         return subtask;
@@ -229,6 +231,9 @@ public class InMemoryTaskManager implements TaskManager {
     public boolean isTasksCross(Task task1, Task task2) {
         if (task1.toString().equals(task2.toString())) {
             return false;
+        }
+        if (task1.getStartTime() == null || task2.getStartTime() == null) {
+            return false; // задачи без времени не пересекаются
         }
         LocalDateTime start1 = task1.getStartTime();
         LocalDateTime end1 = task1.getEndTime();
