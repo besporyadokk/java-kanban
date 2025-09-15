@@ -1,21 +1,34 @@
-package test.serviсe;
+package test.service;
 
+import com.yandex.fz4.model.Task;
+import com.yandex.fz4.service.FileBackedTaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileBackedTaskManagerTest extends InMemoryTaskManagerTest {
+class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
+    private File testFile;
 
-    @BeforeEach
-    void SetUp() {
-        Path testFile = File.createTempFile("test", ".tmp");
-        fileManager = new FileBackedTaskManager(testFile);
+    @Override
+    protected FileBackedTaskManager createTaskManager() {
+        try {
+            testFile = File.createTempFile("test", ".tmp");
+            return new FileBackedTaskManager(testFile);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create temp file", e);
+        }
     }
 
     @Test
     void shouldSaveAndLoadEmptyFile() {
-        fileManager.save();
+        FileBackedTaskManager manager = createTaskManager();
+        manager.save();
+
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(testFile);
         assertTrue(loadedManager.getTasks().isEmpty());
         assertTrue(loadedManager.getEpics().isEmpty());
@@ -25,16 +38,19 @@ class FileBackedTaskManagerTest extends InMemoryTaskManagerTest {
 
     @Test
     void shouldSaveAndLoadTasks() {
-        Task task1 = new Task("a", "b");
-        Task task2 = new Task("aa", "bb");
-        fileManager.save();
+        FileBackedTaskManager manager = createTaskManager();
+
+        Task task1 = manager.addTask(new Task("a", "b"));
+        Task task2 = manager.addTask(new Task("aa", "bb"));
+
+        manager.save();
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(testFile);
-        loadedTasks = loadedManager.getTasks();
-        assertEquals(2, loadedTasks.size());
+
+        assertEquals(2, loadedManager.getTasks().size());
         Task loadedTask1 = loadedManager.getTaskById(task1.getId());
         Task loadedTask2 = loadedManager.getTaskById(task2.getId());
 
-        assertEquals(task1.toString(), loadedTask1.toString());
-        assertEquals(task2.toString(), loadedTask2.toString());
+        assertEquals(task1.getName(), loadedTask1.getName());
+        assertEquals(task2.getName(), loadedTask2.getName());
     }
 }

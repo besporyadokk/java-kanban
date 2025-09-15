@@ -54,13 +54,14 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addTask(Task task) {
+    public Task addTask(Task task) {
         if (isTaskCrossWithAnyOther(task)) {
             throw new IllegalArgumentException("Задача пересекается по времени с другой.");
         }
         task.setId(newId++);
         task.setTaskType(TaskType.TASK);
         tasks.put(task.getId(), task);
+        return task;
     }
 
     @Override
@@ -96,10 +97,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addEpic(Task epic) {
+    public Epic addEpic(Task epic) {
         epic.setId(newId++);
         epic.setTaskType(TaskType.EPIC);
         epics.put(epic.getId(), (Epic) epic);
+        return null;
     }
 
     @Override
@@ -139,7 +141,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addSubtask(Task task) {
+    public Subtask addSubtask(Task task) {
         Subtask subtask = (Subtask) task;
 
         if (isTaskCrossWithAnyOther(task)) {
@@ -147,7 +149,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
 
         if (!epics.containsKey(subtask.getEpicId())) {
-            return;
+            return subtask;
         }
         subtask.setId(newId++);
         subtask.setTaskType(TaskType.SUBTASK);
@@ -156,6 +158,7 @@ public class InMemoryTaskManager implements TaskManager {
         subtask.setStatus(TaskStatus.NEW);
         updateEpicStatus(subtask.getEpicId());
 
+        return subtask;
     }
 
     @Override
