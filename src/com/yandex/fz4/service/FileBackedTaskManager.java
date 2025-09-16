@@ -11,7 +11,7 @@ import java.util.*;
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private File file;
-    private static final String toStringType = "id,type,name,status,description,epic,startTime,endTime,duration";
+    private static final String toStringType = "id,type,name,status,description,epicId,startTime,endTime,duration";
 
     public FileBackedTaskManager(File file) {
         this.file = file;

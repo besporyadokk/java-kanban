@@ -96,7 +96,7 @@ public class Task {
                 status + "," +
                 description + "," +
                 startTime + "," +
-                endTime + "," +
+                getEndTime() + "," +
                 duration;
 
     }
