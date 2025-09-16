@@ -91,7 +91,11 @@ public class Task {
                 type + "," +
                 name + "," +
                 status + "," +
-                description;
+                description + "," +
+                startTime + "," +
+                endTime + "," +
+                duration;
+
     }
 
     @Override

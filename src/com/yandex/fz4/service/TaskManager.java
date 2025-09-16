@@ -54,5 +54,5 @@ public interface TaskManager {
 
     ArrayList<Subtask> getSubtasksByEpicId(int epicId);
 
-    TreeSet<Task> getPrioritizedTasks();
+    List<Task> getPrioritizedTasks();
 }
