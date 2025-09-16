@@ -144,17 +144,21 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         } else {
             return null;
         }
-        if (split.length > 6 && !"null".equals(split[6])) {
+
+
+        if (split.length > 6 && !"null".equals(split[6]) && !split[6].isEmpty()) {
             LocalDateTime startTime = LocalDateTime.parse(split[6]);
             task.setStartTime(startTime);
         }
 
-        if (split.length > 7 && !"null".equals(split[7])) {
+
+        if (split.length > 7 && !"null".equals(split[7]) && !split[7].isEmpty()) {
             LocalDateTime endTime = LocalDateTime.parse(split[7]);
             task.setEndTime(endTime);
         }
 
-        if (split.length > 8 && !"null".equals(split[8])) {
+
+        if (split.length > 8 && !"null".equals(split[8]) && !split[8].isEmpty()) {
             long duration = Long.parseLong(split[8]);
             task.setDuration(duration);
         }
