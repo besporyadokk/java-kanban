@@ -193,7 +193,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                         manager.addSubtaskWithoutSave((Subtask) task);
 
                         Subtask subtask = (Subtask) task;
-                        Epic epic = manager.getEpicById(subtask.getId());
+                        Epic epic = manager.getEpicById(subtask.getEpicId());
                         if (epic != null) {
                             epic.addSubtaskId(subtask.getId());
                         }
