@@ -221,10 +221,10 @@ public class InMemoryTaskManager implements TaskManager {
 
             fullDuration += subtask.getDuration();
 
-            if (subtask.getStartTime().isBefore(earliestStart)) {
+            if (earliestStart == null || subtask.getStartTime().isBefore(earliestStart)) {
                 earliestStart = subtask.getStartTime();
             }
-            if (subtask.getEndTime().isAfter(latestEnd)) {
+            if (latestEnd == null || subtask.getEndTime().isAfter(latestEnd)) {
                 latestEnd = subtask.getEndTime();
             }
 
