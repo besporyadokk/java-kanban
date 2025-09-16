@@ -95,10 +95,10 @@ public class Task {
                 name + "," +
                 status + "," +
                 description + "," +
+                "" + "," +
                 startTime + "," +
                 getEndTime() + "," +
                 duration;
-
     }
 
     @Override

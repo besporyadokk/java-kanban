@@ -151,12 +151,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             task.setStartTime(startTime);
         }
 
-
         if (split.length > 7 && !"null".equals(split[7]) && !split[7].isEmpty()) {
             LocalDateTime endTime = LocalDateTime.parse(split[7]);
             task.setEndTime(endTime);
         }
-
 
         if (split.length > 8 && !"null".equals(split[8]) && !split[8].isEmpty()) {
             long duration = Long.parseLong(split[8]);

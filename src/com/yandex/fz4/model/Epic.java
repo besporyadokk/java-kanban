@@ -46,10 +46,10 @@ public class Epic extends Task {
                 name + "," +
                 status + "," +
                 description + "," +
+                "" + "," +  // пустое поле для epicId
                 getStartTime() + "," +
                 getEndTime() + "," +
                 duration;
-
     }
 
 }
