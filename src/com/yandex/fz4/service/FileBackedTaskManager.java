@@ -112,7 +112,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public static Task fromString(String string) {
         String[] split = string.split(",");
-        if (split.length < 5 ) {
+        if (split.length < 5) {
             return null;
         }
 
@@ -128,15 +128,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             subtask.setId(id);
             subtask.setStatus(status);
 
-            if(split.length > 6){
+            if (split.length > 6) {
                 LocalDateTime startTime = LocalDateTime.parse(split[6]);
                 subtask.setStartTime(startTime);
                 LocalDateTime endTime = LocalDateTime.parse(split[7]);
                 subtask.setEndTime(endTime);
                 long duration = Integer.parseInt(split[8]);
                 subtask.setDuration(duration);
-            }
-            else{
+            } else {
                 return null;
             }
 
@@ -147,15 +146,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 task.setId(id);
                 task.setStatus(status);
 
-                if(split.length > 6){
+                if (split.length > 6) {
                     LocalDateTime startTime = LocalDateTime.parse(split[6]);
                     task.setStartTime(startTime);
                     LocalDateTime endTime = LocalDateTime.parse(split[7]);
                     task.setEndTime(endTime);
                     long duration = Integer.parseInt(split[8]);
                     task.setDuration(duration);
-                }
-                else{
+                } else {
                     return null;
                 }
 
@@ -165,15 +163,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 epic.setId(id);
                 epic.setStatus(status);
 
-                if(split.length > 6){
+                if (split.length > 6) {
                     LocalDateTime startTime = LocalDateTime.parse(split[6]);
                     epic.setStartTime(startTime);
                     LocalDateTime endTime = LocalDateTime.parse(split[7]);
                     epic.setEndTime(endTime);
                     long duration = Integer.parseInt(split[8]);
                     epic.setDuration(duration);
-                }
-                else{
+                } else {
                     return null;
                 }
 
