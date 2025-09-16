@@ -4,13 +4,14 @@ package com.yandex.fz4.service;
 import com.yandex.fz4.model.*;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private File file;
-    private static final String toStringType = "id,type,name,status,description,epic";
+    private static final String toStringType = "id,type,name,status,description,epic,startTime,endTime,duration";
 
     public FileBackedTaskManager(File file) {
         this.file = file;
@@ -111,30 +112,71 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public static Task fromString(String string) {
         String[] split = string.split(",");
-        if (split.length < 5 | split.length > 6) {
+        if (split.length < 5 ) {
             return null;
         }
+
         int id = Integer.parseInt(split[0]);
         String type = split[1];
         String name = split[2];
         TaskStatus status = TaskStatus.valueOf(split[3]);
         String description = split[4];
-        if (split.length == 6) {
+
+        if (type.equals("SUBTASK")) {
             int epicId = Integer.parseInt(split[5]);
             Subtask subtask = new Subtask(name, description, epicId);
             subtask.setId(id);
             subtask.setStatus(status);
+
+            if(split.length > 6){
+                LocalDateTime startTime = LocalDateTime.parse(split[6]);
+                subtask.setStartTime(startTime);
+                LocalDateTime endTime = LocalDateTime.parse(split[7]);
+                subtask.setEndTime(endTime);
+                long duration = Integer.parseInt(split[8]);
+                subtask.setDuration(duration);
+            }
+            else{
+                return null;
+            }
+
             return subtask;
         } else {
             if (type.equals("TASK")) {
                 Task task = new Task(name, description);
                 task.setId(id);
                 task.setStatus(status);
+
+                if(split.length > 6){
+                    LocalDateTime startTime = LocalDateTime.parse(split[6]);
+                    task.setStartTime(startTime);
+                    LocalDateTime endTime = LocalDateTime.parse(split[7]);
+                    task.setEndTime(endTime);
+                    long duration = Integer.parseInt(split[8]);
+                    task.setDuration(duration);
+                }
+                else{
+                    return null;
+                }
+
                 return task;
             } else if (type.equals("EPIC")) {
                 Epic epic = new Epic(name, description);
                 epic.setId(id);
                 epic.setStatus(status);
+
+                if(split.length > 6){
+                    LocalDateTime startTime = LocalDateTime.parse(split[6]);
+                    epic.setStartTime(startTime);
+                    LocalDateTime endTime = LocalDateTime.parse(split[7]);
+                    epic.setEndTime(endTime);
+                    long duration = Integer.parseInt(split[8]);
+                    epic.setDuration(duration);
+                }
+                else{
+                    return null;
+                }
+
                 return epic;
             } else {
                 return null;

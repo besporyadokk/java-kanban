@@ -27,10 +27,10 @@ public class Subtask extends Task {
                 name + "," +
                 status + "," +
                 description + "," +
+                epicId+ ","+
                 startTime + "," +
                 endTime + "," +
-                duration + "," +
-                epicId;
+                duration + ",";
 
     }
 
