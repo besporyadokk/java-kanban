@@ -218,16 +218,16 @@ public class InMemoryTaskManager implements TaskManager {
             if (subtask.getStatus() != TaskStatus.DONE) {
                 allDone = false;
             }
+            if (subtask.getStartTime() != null) {
+                fullDuration += subtask.getDuration();
 
-            fullDuration += subtask.getDuration();
-
-            if (earliestStart == null || subtask.getStartTime().isBefore(earliestStart)) {
-                earliestStart = subtask.getStartTime();
+                if (earliestStart == null || subtask.getStartTime().isBefore(earliestStart)) {
+                    earliestStart = subtask.getStartTime();
+                }
+                if (latestEnd == null || subtask.getEndTime().isAfter(latestEnd)) {
+                    latestEnd = subtask.getEndTime();
+                }
             }
-            if (latestEnd == null || subtask.getEndTime().isAfter(latestEnd)) {
-                latestEnd = subtask.getEndTime();
-            }
-
 
         }
         epic.setDuration(fullDuration);
