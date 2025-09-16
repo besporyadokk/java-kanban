@@ -122,64 +122,44 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         TaskStatus status = TaskStatus.valueOf(split[3]);
         String description = split[4];
 
+        Task task = null;
+
         if (type.equals("SUBTASK")) {
+            if (split.length < 6) return null;
             int epicId = Integer.parseInt(split[5]);
             Subtask subtask = new Subtask(name, description, epicId);
             subtask.setId(id);
             subtask.setStatus(status);
-
-            if (split.length > 6) {
-                LocalDateTime startTime = LocalDateTime.parse(split[6]);
-                subtask.setStartTime(startTime);
-                LocalDateTime endTime = LocalDateTime.parse(split[7]);
-                subtask.setEndTime(endTime);
-                long duration = Integer.parseInt(split[8]);
-                subtask.setDuration(duration);
-            } else {
-                return null;
-            }
-
-            return subtask;
+            task = subtask;
+        } else if (type.equals("TASK")) {
+            Task simpleTask = new Task(name, description);
+            simpleTask.setId(id);
+            simpleTask.setStatus(status);
+            task = simpleTask;
+        } else if (type.equals("EPIC")) {
+            Epic epic = new Epic(name, description);
+            epic.setId(id);
+            epic.setStatus(status);
+            task = epic;
         } else {
-            if (type.equals("TASK")) {
-                Task task = new Task(name, description);
-                task.setId(id);
-                task.setStatus(status);
-
-                if (split.length > 6) {
-                    LocalDateTime startTime = LocalDateTime.parse(split[6]);
-                    task.setStartTime(startTime);
-                    LocalDateTime endTime = LocalDateTime.parse(split[7]);
-                    task.setEndTime(endTime);
-                    long duration = Integer.parseInt(split[8]);
-                    task.setDuration(duration);
-                } else {
-                    return null;
-                }
-
-                return task;
-            } else if (type.equals("EPIC")) {
-                Epic epic = new Epic(name, description);
-                epic.setId(id);
-                epic.setStatus(status);
-
-                if (split.length > 6) {
-                    LocalDateTime startTime = LocalDateTime.parse(split[6]);
-                    epic.setStartTime(startTime);
-                    LocalDateTime endTime = LocalDateTime.parse(split[7]);
-                    epic.setEndTime(endTime);
-                    long duration = Integer.parseInt(split[8]);
-                    epic.setDuration(duration);
-                } else {
-                    return null;
-                }
-
-                return epic;
-            } else {
-                return null;
-            }
+            return null;
+        }
+        if (split.length > 6 && !"null".equals(split[6])) {
+            LocalDateTime startTime = LocalDateTime.parse(split[6]);
+            task.setStartTime(startTime);
         }
 
+        if (split.length > 7 && !"null".equals(split[7])) {
+            LocalDateTime endTime = LocalDateTime.parse(split[7]);
+            task.setEndTime(endTime);
+        }
+
+        if (split.length > 8 && !"null".equals(split[8])) {
+            long duration = Long.parseLong(split[8]);
+            task.setDuration(duration);
+        }
+
+        return task;
     }
 
     public static FileBackedTaskManager loadFromFile(File file) {
