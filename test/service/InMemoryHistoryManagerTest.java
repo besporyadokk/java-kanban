@@ -66,4 +66,68 @@ class InMemoryHistoryManagerTest {
         assertEquals(0, historyManager.getHistory().size());
     }
 
+    @Test
+    void testEmptyHistory() {
+
+        List<Task> history = historyManager.getHistory();
+        assertNotNull(history);
+        assertTrue(history.isEmpty());
+    }
+
+    @Test
+    void testRemoveFromHistoryBeginning() {
+
+        Task task1 = new Task("Task1", "Desc");
+        task1.setId(1);
+        Task task2 = new Task("Task2", "Desc");
+        task2.setId(2);
+        Task task3 = new Task("Task3", "Desc");
+        task3.setId(3);
+
+        historyManager.add(task1);
+        historyManager.add(task2);
+        historyManager.add(task3);
+
+        historyManager.remove(1);
+        assertEquals(2, historyManager.getHistory().size());
+        assertEquals(2, historyManager.getHistory().get(0).getId());
+    }
+
+    @Test
+    void testRemoveFromHistoryMiddle() {
+
+        Task task1 = new Task("Task1", "Desc");
+        task1.setId(1);
+        Task task2 = new Task("Task2", "Desc");
+        task2.setId(2);
+        Task task3 = new Task("Task3", "Desc");
+        task3.setId(3);
+
+        historyManager.add(task1);
+        historyManager.add(task2);
+        historyManager.add(task3);
+
+        historyManager.remove(2);
+        assertEquals(2, historyManager.getHistory().size());
+    }
+
+    @Test
+    void testRemoveFromHistoryEnd() {
+
+        Task task1 = new Task("Task1", "Desc");
+        task1.setId(1);
+        Task task2 = new Task("Task2", "Desc");
+        task2.setId(2);
+        Task task3 = new Task("Task3", "Desc");
+        task3.setId(3);
+
+        historyManager.add(task1);
+        historyManager.add(task2);
+        historyManager.add(task3);
+
+        historyManager.remove(3);
+        assertEquals(2, historyManager.getHistory().size());
+        assertEquals(2, historyManager.getHistory().get(1).getId());
+    }
+
 }

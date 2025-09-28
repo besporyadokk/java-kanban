@@ -4,13 +4,14 @@ package com.yandex.fz4.service;
 import com.yandex.fz4.model.*;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private File file;
-    private static final String toStringType = "id,type,name,status,description,epic";
+    private static final String toStringType = "id,type,name,status,description,epicId,startTime,endTime,duration";
 
     public FileBackedTaskManager(File file) {
         this.file = file;
@@ -19,10 +20,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(toStringType);
+            writer.newLine();
             for (Task task : getTasks()) {
                 writer.write(toString(task));
+                writer.newLine();
             }
-
         } catch (IOException e) {
             throw new ManagerSaveException(e.getMessage());
         }
@@ -39,9 +41,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void addTask(Task task) {
-        super.addTask(task);
+    public Task addTask(Task task) {
+        Task result = super.addTask(task); // должен увеличить newId
         save();
+        return result;
     }
 
     @Override
@@ -56,10 +59,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+
     @Override
-    public void addEpic(Task epic) {
-        super.addEpic(epic);
+    public Epic addEpic(Task epic) {
+        Epic result = super.addEpic(epic); // должен увеличить newId
         save();
+        return result;
     }
 
     @Override
@@ -81,9 +86,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void addSubtask(Task subtask) {
-        super.addSubtask(subtask);
+    public Subtask addSubtask(Task subtask) {
+        Subtask result = super.addSubtask(subtask); // должен увеличить newId
         save();
+        return result;
     }
 
     @Override
@@ -106,36 +112,56 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public static Task fromString(String string) {
         String[] split = string.split(",");
-        if (split.length < 5 | split.length > 6) {
+        if (split.length < 5) {
             return null;
         }
+
         int id = Integer.parseInt(split[0]);
         String type = split[1];
         String name = split[2];
         TaskStatus status = TaskStatus.valueOf(split[3]);
         String description = split[4];
-        if (split.length == 6) {
+
+        Task task = null;
+
+        if (type.equals("SUBTASK")) {
+            if (split.length < 6) return null;
             int epicId = Integer.parseInt(split[5]);
             Subtask subtask = new Subtask(name, description, epicId);
             subtask.setId(id);
             subtask.setStatus(status);
-            return subtask;
+            task = subtask;
+        } else if (type.equals("TASK")) {
+            Task simpleTask = new Task(name, description);
+            simpleTask.setId(id);
+            simpleTask.setStatus(status);
+            task = simpleTask;
+        } else if (type.equals("EPIC")) {
+            Epic epic = new Epic(name, description);
+            epic.setId(id);
+            epic.setStatus(status);
+            task = epic;
         } else {
-            if (type.equals("TASK")) {
-                Task task = new Task(name, description);
-                task.setId(id);
-                task.setStatus(status);
-                return task;
-            } else if (type.equals("EPIC")) {
-                Epic epic = new Epic(name, description);
-                epic.setId(id);
-                epic.setStatus(status);
-                return epic;
-            } else {
-                return null;
-            }
+            return null;
         }
 
+
+        if (split.length > 6 && !"null".equals(split[6]) && !split[6].isEmpty()) {
+            LocalDateTime startTime = LocalDateTime.parse(split[6]);
+            task.setStartTime(startTime);
+        }
+
+        if (split.length > 7 && !"null".equals(split[7]) && !split[7].isEmpty()) {
+            LocalDateTime endTime = LocalDateTime.parse(split[7]);
+            task.setEndTime(endTime);
+        }
+
+        if (split.length > 8 && !"null".equals(split[8]) && !split[8].isEmpty()) {
+            long duration = Long.parseLong(split[8]);
+            task.setDuration(duration);
+        }
+
+        return task;
     }
 
     public static FileBackedTaskManager loadFromFile(File file) {
@@ -165,7 +191,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                         manager.addSubtaskWithoutSave((Subtask) task);
 
                         Subtask subtask = (Subtask) task;
-                        Epic epic = manager.getEpicById(subtask.getId());
+                        Epic epic = manager.getEpicById(subtask.getEpicId());
                         if (epic != null) {
                             epic.addSubtaskId(subtask.getId());
                         }

@@ -1,5 +1,7 @@
 package com.yandex.fz4.model;
 
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -10,6 +12,7 @@ public class Epic extends Task {
     public Epic(String name, String description) {
         super(name, description);
         this.subtasksIds = new ArrayList<>();
+        this.type = TaskType.EPIC;
     }
 
     public ArrayList<Integer> getSubtasksIds() {
@@ -23,18 +26,30 @@ public class Epic extends Task {
     }
 
     public void removeSubtaskId(int subtaskId) {
-
         subtasksIds.remove(Integer.valueOf(subtaskId));
     }
 
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public long getDuration() {
+        return duration;
+    }
 
     @Override
     public String toString() {
-        return
-                name + ", " +
-                        description + ", " +
-                        ", " + status +
-                        ", " + id;
+        return id + "," +
+                type + "," +
+                name + "," +
+                status + "," +
+                description + "," +
+                "" + "," +  // пустое поле для epicId
+                getStartTime() + "," +
+                getEndTime() + "," +
+                duration;
     }
 
 }
