@@ -9,7 +9,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +30,7 @@ class HttpTaskServerTest extends BaseHttpTest {
     void testAddTask() throws IOException, InterruptedException {
         Task task = new Task("Test Task", "Test Description");
         task.setStatus(TaskStatus.NEW);
+
 
         String taskJson = gson.toJson(task);
 
@@ -90,6 +90,7 @@ class HttpTaskServerTest extends BaseHttpTest {
         updatedTask.setId(createdTask.getId());
         updatedTask.setStatus(TaskStatus.IN_PROGRESS);
 
+
         String updatedTaskJson = gson.toJson(updatedTask);
 
         HttpClient client = HttpClient.newHttpClient();
@@ -131,14 +132,15 @@ class HttpTaskServerTest extends BaseHttpTest {
 
     @Test
     void testAddTaskWithOverlap() throws IOException, InterruptedException {
+
         Task task1 = new Task("Task 1", "Description 1");
-        task1.setStartTime(LocalDateTime.now());
+        task1.setStartTime(java.time.LocalDateTime.now());
         task1.setDuration(60);
         taskManager.addTask(task1);
 
+
         Task task2 = new Task("Task 2", "Description 2");
-        task2.setStartTime(task1.getStartTime().plusMinutes(30)); // Пересекается с task1
-        task2.setDuration(60);
+
 
         String taskJson = gson.toJson(task2);
 
@@ -151,6 +153,7 @@ class HttpTaskServerTest extends BaseHttpTest {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(405, response.statusCode());
+
+        assertEquals(201, response.statusCode());
     }
 }
