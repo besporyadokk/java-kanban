@@ -2,8 +2,6 @@
 package com.yandex.fz4.http.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.yandex.fz4.model.*;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
