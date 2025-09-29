@@ -1,8 +1,3 @@
-
-// раскаиваюсь, много написано не без нейронки, просто,
-// к сожалению, жёсткий дедлайн совпал с сильным завалом в университете и на работе  :(
-
-
 package com.yandex.fz4.http;
 
 import com.sun.net.httpserver.HttpServer;
@@ -18,12 +13,17 @@ public class HttpTaskServer {
     private final HttpServer server;
     private final TaskManager taskManager;
 
+
     public HttpTaskServer() throws IOException {
-        this.taskManager = Managers.getDefault();
+        this(Managers.getDefault());
+    }
+
+
+    public HttpTaskServer(TaskManager taskManager) throws IOException {
+        this.taskManager = taskManager;
         this.server = HttpServer.create(new InetSocketAddress(PORT), 0);
         configureEndpoints();
     }
-
 
     private void configureEndpoints() {
         server.createContext("/tasks", new TasksHandler(taskManager));

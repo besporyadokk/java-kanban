@@ -1,7 +1,5 @@
-
 package test.http;
 
-import com.yandex.fz4.http.BaseHttpTest;
 import com.yandex.fz4.model.Task;
 import com.yandex.fz4.model.TaskStatus;
 import org.junit.jupiter.api.Test;
@@ -153,6 +151,6 @@ class HttpTaskServerTest extends BaseHttpTest {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(406, response.statusCode());
+        assertEquals(405, response.statusCode());
     }
 }
