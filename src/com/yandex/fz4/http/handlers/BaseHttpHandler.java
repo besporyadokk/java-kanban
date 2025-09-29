@@ -1,13 +1,26 @@
-
 package com.yandex.fz4.http.handlers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
+import com.yandex.fz4.model.*;
+
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class BaseHttpHandler {
+    protected final Gson gson;
+
+    public BaseHttpHandler() {
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+    }
+
     protected void sendText(HttpExchange exchange, String text, int statusCode) throws IOException {
         byte[] response = text.getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().add("Content-Type", "application/json;charset=utf-8");
@@ -31,7 +44,7 @@ public class BaseHttpHandler {
 
     protected void sendHasOverlaps(HttpExchange exchange) throws IOException {
         String response = "{\"error\": \"Task overlaps with existing tasks\"}";
-        sendText(exchange, response, 405);
+        sendText(exchange, response, 406);
     }
 
     protected void sendInternalError(HttpExchange exchange) throws IOException {

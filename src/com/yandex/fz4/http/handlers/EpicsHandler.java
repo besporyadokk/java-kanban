@@ -13,11 +13,11 @@ import java.util.Optional;
 
 public class EpicsHandler extends BaseHttpHandler implements HttpHandler {
     private final TaskManager taskManager;
-    private final Gson gson;
+
 
     public EpicsHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
-        this.gson = new Gson();
+
     }
 
     @Override
