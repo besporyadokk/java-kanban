@@ -25,7 +25,6 @@ public class HttpTaskServer {
     }
 
 
-
     private void configureEndpoints() {
         server.createContext("/tasks", new TasksHandler(taskManager));
         server.createContext("/subtasks", new SubtasksHandler(taskManager));
