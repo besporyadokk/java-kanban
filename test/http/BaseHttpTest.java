@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.yandex.fz4.http.HttpTaskServer;
 import com.yandex.fz4.service.Managers;
 import com.yandex.fz4.service.TaskManager;
-import com.yandex.fz4.util.LocalDateTimeAdapter;
+import com.yandex.fz4.model.LocalDateTimeAdapter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
