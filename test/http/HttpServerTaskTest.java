@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HttpTaskServerTest extends BaseHttpTest {
+class HttpServerTaskTest extends BaseHttpTest {
 
     @Test
     void testGetTasksWhenEmpty() throws IOException, InterruptedException {
