@@ -80,26 +80,19 @@ public class SubtasksHandler extends BaseHttpHandler implements HttpHandler {
             sendBadRequest(exchange, "Empty request body");
             return;
         }
-
         try {
             Subtask subtask = gson.fromJson(bodyOpt.get(), Subtask.class);
 
-            if (subtask.getId() == 0) { // Create new subtask
-                try {
-                    Subtask createdSubtask = taskManager.addSubtask(subtask);
-                    String response = gson.toJson(createdSubtask);
-                    sendCreated(exchange, response);
-                } catch (IllegalArgumentException e) {
-                    sendHasOverlaps(exchange);
-                }
-            } else { // Update existing subtask
-                try {
-                    taskManager.updateSubtask(subtask);
-                    sendCreated(exchange, "{\"message\": \"Subtask updated successfully\"}");
-                } catch (IllegalArgumentException e) {
-                    sendHasOverlaps(exchange);
-                }
+            if (subtask.getId() == 0) {
+                Subtask createdSubtask = taskManager.addSubtask(subtask);
+                String response = gson.toJson(createdSubtask);
+                sendCreated(exchange, response);
+            } else {
+                taskManager.updateSubtask(subtask);
+                sendCreated(exchange, "{\"message\": \"Subtask updated successfully\"}");
             }
+        } catch (IllegalArgumentException e) {
+            sendHasOverlaps(exchange);
         } catch (JsonSyntaxException e) {
             sendBadRequest(exchange, "Invalid JSON format");
         }
